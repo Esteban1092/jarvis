@@ -1,0 +1,77 @@
+{
+  "theme": "dark",
+  "archetype": "5 (Jewel & Luxury) mixed with Retro-Futurism",
+  "mood": "Cinematic, High-tech, Immersive, Ethereal",
+  "colors": {
+    "background_base": "#05050A",
+    "background_surface": "rgba(255, 255, 255, 0.03)",
+    "glass_border": "rgba(255, 255, 255, 0.1)",
+    "primary_cyan": "#00E5FF",
+    "primary_blue": "#007AFF",
+    "core_white": "#F8FAFC",
+    "text_main": "#F8FAFC",
+    "text_muted": "#94A3B8"
+  },
+  "typography": {
+    "headings": "Outfit, sans-serif",
+    "body": "IBM Plex Sans, sans-serif",
+    "mono": "JetBrains Mono, monospace"
+  },
+  "layout": {
+    "strategy": "Split Asymmetric Full-Screen Grid",
+    "structure": "grid-cols-1 md:grid-cols-12 h-screen w-full overflow-hidden bg-[#05050A] text-white",
+    "sections": {
+      "hero_left": "col-span-1 md:col-span-8 relative flex items-center justify-center bg-[url('https://images.pexels.com/photos/7562087/pexels-photo-7562087.jpeg')] bg-cover bg-center before:content-[''] before:absolute before:inset-0 before:bg-[#05050A]/90 before:backdrop-blur-[2px]",
+      "chat_right": "col-span-1 md:col-span-4 h-full bg-white/[0.03] backdrop-blur-2xl border-l border-white/10 flex flex-col relative z-10 shadow-[-20px_0_40px_rgba(0,0,0,0.5)]"
+    }
+  },
+  "components": {
+    "sphere": {
+      "wrapper": "relative flex items-center justify-center w-64 h-64 md:w-80 md:h-80 z-20",
+      "core": "absolute inset-0 rounded-full bg-gradient-to-br from-[#ffffff] via-[#E0F2FE] to-[#007AFF] shadow-[inset_0_-20px_40px_rgba(0,122,255,0.6),_0_0_40px_rgba(255,255,255,0.8)]",
+      "aura_layer_1": "absolute inset-0 rounded-full bg-[#00E5FF] mix-blend-screen blur-[20px] opacity-60",
+      "aura_layer_2": "absolute -inset-10 rounded-full border border-[#00E5FF]/40",
+      "states": {
+        "idle": "Soft breathing animation. Scale from 1 to 1.02. Low glow.",
+        "waiting": "Rings slowly spin and pulse.",
+        "listening": "Aura expands and contracts rapidly. Rings scale up. Inner shadow pulses intensely.",
+        "speaking": "Audio-reactive behavior (simulated). Multi-layered blue aura waves emitting outward like ripples. High blur and opacity on the cyan glow."
+      }
+    },
+    "chat_panel": {
+      "container": "flex-1 overflow-y-auto p-6 flex flex-col gap-6 custom-scrollbar",
+      "user_bubble": "self-end max-w-[85%] bg-white/10 backdrop-blur-md rounded-2xl rounded-tr-sm px-5 py-3 text-white font-sans text-sm border border-white/20 shadow-lg",
+      "ai_bubble": "self-start max-w-[85%] bg-transparent text-[#00E5FF] px-2 py-3 text-sm font-sans tracking-wide leading-relaxed",
+      "header": "h-20 border-b border-white/10 flex items-center justify-between px-6 shrink-0",
+      "input_area": "p-6 border-t border-white/10 shrink-0 bg-[#05050A]/50 backdrop-blur-md"
+    },
+    "status_indicator": {
+      "container": "absolute top-8 left-8 flex items-center gap-3 bg-white/5 border border-white/10 px-4 py-2 rounded-full backdrop-blur-md",
+      "dot": "w-2 h-2 rounded-full bg-[#00E5FF] animate-pulse",
+      "text": "text-xs font-mono text-[#00E5FF] tracking-widest uppercase"
+    }
+  },
+  "motion": {
+    "sphere_breathing": "Use framer-motion variants for the sphere container. animate={{ scale: [1, 1.02, 1], boxShadow: [...] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}",
+    "aura_ripples": "Render 2-3 absolute divs behind the sphere. When speaking, animate them with scale from 1 to 1.8 and opacity from 0.8 to 0. Repeat infinite.",
+    "chat_reveal": "New messages slide up (y: 20 -> 0) and fade in (opacity: 0 -> 1) using framer-motion."
+  },
+  "media": {
+    "background_texture": {
+      "url": "https://images.pexels.com/photos/7562087/pexels-photo-7562087.jpeg",
+      "description": "Used as a very faint, highly darkened overlay on the left hero side to give a tech/lab environment texture rather than flat black."
+    }
+  },
+  "instructions_to_main_agent": [
+    "Install and use 'Outfit', 'IBM Plex Sans', and 'JetBrains Mono' from Google Fonts.",
+    "Use Lucide React or Phosphor Icons for UI elements like mic, settings, clear chat.",
+    "The layout MUST be split: left side (sphere) taking ~65% width, right side (chat) taking ~35%. On mobile, stack them vertically but keep the sphere prominent.",
+    "The Sphere MUST be predominantly white with blue gradients/shadows to match the prompt 'esfera blanca con azul'.",
+    "The Aura MUST be blue/cyan ('aura color azul'). Use multiple stacked blurred divs with absolute positioning to create a convincing light emanation effect.",
+    "In the chat, Jarvis's responses should not look like standard bubbles; they should look like clean glowing text or minimalist terminal output to contrast the user's glassmorphic bubble.",
+    "Implement Shadcn Select for the Gemini Model dropdown in the chat header.",
+    "Include a 'Live Transcript' or 'Status' visual cue on the left side near the sphere when the user is speaking.",
+    "DO NOT use generic purple/pink gradients. Stick strictly to Obsidian, White, and Electric Blue/Cyan.",
+    "Ensure all interactive elements have data-testid attributes."
+  ]
+}
