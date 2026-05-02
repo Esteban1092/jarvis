@@ -36,6 +36,12 @@ JARVIS_SYSTEM_PROMPT = (
     "describe it as if you executed it virtually."
 )
 
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
 app = FastAPI()
 api_router = APIRouter(prefix="/api")
 
@@ -68,24 +74,6 @@ async def _save_message(session_id: str, role: str, content: str, model: Optiona
     msg = ChatMessage(session_id=session_id, role=role, content=content, model=model)
     await db.chat_messages.insert_one(msg.model_dump())
     return msg
-
-
-async def _build_chat(api_key: str, session_id: str, model_name: str) -> LlmChat:
-    chat = LlmChat(
-        api_key=api_key,
-        session_id=session_id,
-        system_message=JARVIS_SYSTEM_PROMPT,
-    ).with_model("gemini", model_name)
-    return chat
-
-
-async def _replay_history(chat: LlmChat, session_id: str):
-    """Replay previous messages so the model has context (LlmChat is per-request stateless across processes)."""
-    cursor = db.chat_messages.find({"session_id": session_id}, {"_id": 0}).sort("timestamp", 1)
-    history = await cursor.to_list(200)
-    for m in history:
-        if m["role"] == "user":
-            await chat.send_message(UserMessage(text=m["content"]))
 
 
 # ---- Routes ----
@@ -186,13 +174,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
-
 
 @app.on_event("shutdown")
 async def shutdown_db_client():

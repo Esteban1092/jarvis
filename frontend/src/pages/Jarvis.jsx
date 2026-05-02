@@ -53,7 +53,9 @@ export default function Jarvis() {
         const res = await axios.get(`${API}/chat/history/${sessionId}`);
         setMessages(res.data || []);
       } catch (e) {
-        console.error("History load failed", e);
+        if (process.env.NODE_ENV === "development") {
+          console.error("History load failed", e);
+        }
       }
     })();
   }, [sessionId]);
@@ -100,7 +102,9 @@ export default function Jarvis() {
         voice.speak(reply, { lang });
       }
     } catch (err) {
-      console.error(err);
+      if (process.env.NODE_ENV === "development") {
+        console.error(err);
+      }
       const detail = err?.response?.data?.detail || err.message;
       toast.error(`Jarvis falló: ${detail}`);
       setMessages((prev) => [

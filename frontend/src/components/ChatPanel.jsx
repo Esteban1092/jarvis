@@ -176,7 +176,7 @@ export const ChatPanel = ({
       </div>
 
       {/* Input */}
-      <div className="p-4 border-t border-white/10 shrink-0 bg-[#05050A]/60 backdrop-blur-md">
+      <div className="p-4 pb-14 border-t border-white/10 shrink-0 bg-[#05050A]/60 backdrop-blur-md">
         <div className="flex items-end gap-2 bg-white/5 border border-white/10 rounded-xl px-3 py-2 focus-within:border-cyan-400/40 transition">
           <textarea
             data-testid="chat-input"
